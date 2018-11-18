@@ -1,9 +1,9 @@
 
 /*  BST312.h
-  CS 312 Fall 2018
+  EE 312 Fall 2018
+  Jared Vochoska (jiv329)
 
   a simple implementation of a binary search tree
-
 
 */
 
@@ -139,7 +139,7 @@ private:
     void preOrderTraversal(TreeNode* t,vector<ItemType>& result) const;
     void postOrderTraversal(TreeNode* t,vector<ItemType>& result) const;
     void copyTree(TreeNode*& copy, const TreeNode *originalTree);
-    // Helper for isItemInTree
+    // Private recursive helper for isItemInTree
     bool isItemInTree(TreeNode* t, const ItemType& item);
 
 };
@@ -216,12 +216,10 @@ void BST_312 <ItemType>::deleteNode(TreeNode*& t)
 template<class ItemType>
 void BST_312 <ItemType>::getPredecessor(TreeNode* t, ItemType& data)
 {
-
     while (t->right != NULL)
         t = t->right;
 
     data = t->data;
-
 }
 
 
@@ -243,8 +241,8 @@ template<class ItemType>
 void BST_312 <ItemType>::deleteItem(const ItemType& newItem)
 {
     deleteItem(root, newItem);
-
 }
+
 
 template<class ItemType>
 void BST_312 <ItemType>::makeEmpty(TreeNode*& t)
@@ -296,25 +294,21 @@ template<class ItemType>
 void BST_312 <ItemType>::insertItem(TreeNode*& t, const ItemType& newItem)
 {
     if (t == NULL) {
+        // If target node is NULL, insert passed TreeNode there
         t = new TreeNode;
         t->data = newItem;
         t->left = NULL;
         t->right = NULL;
     } else {
-        if ((t->left == NULL) && (t->right == NULL) && ((t->data).empty()))
-            t->data = newItem;
-        else {
-            if (t->data > newItem) {
-                cout << t->data << "  is greater than  " << newItem << endl;
-                insertItem(t->left, newItem);
-            }
-            else {
-                cout << newItem << "  is greater than  " << t->data << endl;
-                insertItem(t->right, newItem);
-            }
+        // traverse the BST to find correct spot for passed TreeNode
+        if (t->data > newItem) {
+            insertItem(t->left, newItem);
+        } else {
+            insertItem(t->right, newItem);
         }
     }
 }
+
 
 template<class ItemType>
 void BST_312 <ItemType>::insertItem(const ItemType& newItem)
@@ -415,8 +409,6 @@ vector<ItemType> BST_312 <ItemType>::postOrderTraversal()
     vector<ItemType> returnVec;
     if (ptr != NULL)
         postOrderTraversal(ptr, returnVec);
-    // for (int i = 0; i < returnVec.size(); i++)
-    //    cout << returnVec[i] << endl;
     return returnVec;
 }
 
@@ -429,14 +421,10 @@ bool BST_312 <ItemType>::isItemInTree(TreeNode* t, const ItemType& item) {
         if (t->data == item)
             return true;
         else {
-            if (t->data > item) {
-                cout << t->data << "  is greater than  " << item << endl;
+            if (t->data > item)
                 return isItemInTree(t->left, item);
-            }
-            else {
-                cout << item << "  is greater than  " << t->data << endl;
+            else
                 return isItemInTree(t->right, item);
-            }
         }
     }
 }
