@@ -164,7 +164,6 @@ template<class ItemType>
 BST_312<ItemType>::~BST_312()
 {
     makeEmpty();
-
 }
 
 
@@ -252,10 +251,8 @@ void BST_312 <ItemType>::makeEmpty(TreeNode*& t)
             makeEmpty(t->left);
         if (t->right != NULL)
             makeEmpty(t->right);
-        delete t->left;
-        delete t->right;
+        delete t;
     }
-    delete t;
 }
 
 template<class ItemType>
@@ -301,11 +298,10 @@ void BST_312 <ItemType>::insertItem(TreeNode*& t, const ItemType& newItem)
         t->right = NULL;
     } else {
         // traverse the BST to find correct spot for passed TreeNode
-        if (t->data > newItem) {
+        if (t->data > newItem)
             insertItem(t->left, newItem);
-        } else {
+        else
             insertItem(t->right, newItem);
-        }
     }
 }
 
@@ -357,10 +353,8 @@ void BST_312 <ItemType>::preOrderTraversal(TreeNode* t,vector<ItemType>& result)
 template<class ItemType>
 vector<ItemType> BST_312 <ItemType>::preOrderTraversal()
 {
-    TreeNode *ptr = root;
     vector<ItemType> returnVec;
-    if (ptr != NULL)
-        preOrderTraversal(ptr, returnVec);
+    preOrderTraversal(root, returnVec);
     return returnVec;
 }
 
@@ -381,10 +375,8 @@ void BST_312 <ItemType>::inOrderTraversal(TreeNode* t,vector<ItemType>& result) 
 template<class ItemType>
 vector<ItemType> BST_312 <ItemType>::inOrderTraversal()
 {
-    TreeNode *ptr = root;
     vector<ItemType> returnVec;
-    if (ptr != NULL)
-        inOrderTraversal(ptr, returnVec);
+    inOrderTraversal(root, returnVec);
     return returnVec;
 }
 
@@ -405,10 +397,8 @@ void BST_312 <ItemType>::postOrderTraversal(TreeNode* t,vector<ItemType>& result
 template<class ItemType>
 vector<ItemType> BST_312 <ItemType>::postOrderTraversal()
 {
-    TreeNode *ptr = root;
     vector<ItemType> returnVec;
-    if (ptr != NULL)
-        postOrderTraversal(ptr, returnVec);
+    postOrderTraversal(root, returnVec);
     return returnVec;
 }
 
